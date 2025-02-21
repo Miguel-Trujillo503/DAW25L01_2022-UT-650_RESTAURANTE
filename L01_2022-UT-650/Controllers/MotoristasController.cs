@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using L01_2022_UT_650.Data;
 using L01_2022_UT_650.Models;
@@ -37,17 +42,8 @@ namespace L01_2022_UT_650.Controllers
             return motorista;
         }
 
-        // POST: api/Motoristas
-        [HttpPost]
-        public async Task<ActionResult<Motorista>> PostMotorista(Motorista motorista)
-        {
-            _context.Motoristas.Add(motorista);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMotorista", new { id = motorista.MotoristaId }, motorista);
-        }
-
         // PUT: api/Motoristas/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMotorista(int id, Motorista motorista)
         {
@@ -75,6 +71,17 @@ namespace L01_2022_UT_650.Controllers
             }
 
             return NoContent();
+        }
+
+        // POST: api/Motoristas
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Motorista>> PostMotorista(Motorista motorista)
+        {
+            _context.Motoristas.Add(motorista);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetMotorista", new { id = motorista.MotoristaId }, motorista);
         }
 
         // DELETE: api/Motoristas/5
